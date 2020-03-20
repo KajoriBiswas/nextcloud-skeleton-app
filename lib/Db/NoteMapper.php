@@ -14,4 +14,35 @@ class NoteMapper extends QBMapper
 	{
 		parent::__construct($db, 'notestutorial', Note::class);
 	}
+	/**
+	 * @param int $id
+	 * @param string $userId
+	 * @return Note
+	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
+	 * @throws DoesNotExistException
+	 */
+	public function find(int $id, string $userId): Note
+	{
+		/* @var $qb IQueryBuilder */
+		$qb = $this->db->getQueryBuilder();
+		$qb->select('*')
+			->from('notestutorial')
+			->where($qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)))
+			->andWhere($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
+		return $this->findEntity($qb);
+	}
+
+	/**
+	 * @param string $userId
+	 * @return array
+	 */
+	public function findAll(string $userId): array
+	{
+		/* @var $qb IQueryBuilder */
+		$qb = $this->db->getQueryBuilder();
+		$qb->select('*')
+			->from('notestutorial')
+			->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
+		return $this->findEntities($qb);
+	}
 }
