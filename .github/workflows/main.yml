@@ -15,9 +15,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Build code
-      run: make build-js
-
     - name: Lint check
       run: make lint
 
