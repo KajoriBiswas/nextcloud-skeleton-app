@@ -16,15 +16,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install Dependencies
-      run: composer install
+      run: make install-deps
 
-    - name: Lint check
-      run: make lint
-
-    - name: Style Lint check
-      run: make stylelint
-
-    - name: Php Lint check
-      run: make php-lint
+    - name: Pre-commit check
+      run: make pre-commit
 
 
