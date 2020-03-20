@@ -15,8 +15,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-		- name: Install Dependencies
-			uses: composer install
+    - name: Install Dependencies
+      uses: composer install
 
     - name: Lint check
       run: make lint
