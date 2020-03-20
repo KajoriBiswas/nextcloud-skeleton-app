@@ -49,36 +49,4 @@ class NoteService
 			$this->handleException($e);
 		}
 	}
-
-	public function create($title, $content, $userId)
-	{
-		$note = new Note();
-		$note->setTitle($title);
-		$note->setContent($content);
-		$note->setUserId($userId);
-		return $this->mapper->insert($note);
-	}
-
-	public function update($id, $title, $content, $userId)
-	{
-		try {
-			$note = $this->mapper->find($id, $userId);
-			$note->setTitle($title);
-			$note->setContent($content);
-			return $this->mapper->update($note);
-		} catch (Exception $e) {
-			$this->handleException($e);
-		}
-	}
-
-	public function delete($id, $userId)
-	{
-		try {
-			$note = $this->mapper->find($id, $userId);
-			$this->mapper->delete($note);
-			return $note;
-		} catch (Exception $e) {
-			$this->handleException($e);
-		}
-	}
 }
