@@ -49,6 +49,7 @@ class NoteService
 			$this->handleException($e);
 		}
 	}
+
 	public function create($title, $content, $userId)
 	{
 		$note = new Note();

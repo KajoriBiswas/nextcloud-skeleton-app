@@ -14,6 +14,7 @@ class NoteMapper extends QBMapper
 	{
 		parent::__construct($db, 'notestutorial', Note::class);
 	}
+
 	/**
 	 * @param int $id
 	 * @param string $userId
