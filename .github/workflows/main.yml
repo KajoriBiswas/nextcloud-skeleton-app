@@ -15,6 +15,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+		- name: Install dependencies
+			run: composer install
+
     - name: Build code
 			run: make build-js
 
@@ -26,5 +29,4 @@ jobs:
 
 		- name: Php Lint check
 			run: make php-lint
-
 
