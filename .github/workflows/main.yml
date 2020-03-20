@@ -18,11 +18,12 @@ jobs:
     - name: Install Dependencies
       run: make install-deps
       
-    - name: Install pecl
-      run: sudo apt-get install php-pear
-      
-    - name: Installation of ast
-      run: pecl install ast
+    - name: Adding Pecl
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        tools: pecl
+        extensions: xdebug-beta
 
     - name: Pre-commit check
       run: make pre-commit
