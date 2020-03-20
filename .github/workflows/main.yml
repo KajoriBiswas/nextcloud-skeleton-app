@@ -15,18 +15,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-		- name: Install dependencies
-			run: composer install
+    - name: Lint check
+      run: make lint
 
-    - name: Build code
-			run: make build-js
+    - name: Style Lint check
+      run: make stylelint
 
-		- name: Lint check
-			run: make lint
+    - name: Php Lint check
+      run: make php-lint
 
-		- name: Style Lint check
-			run: make stylelint
-
-		- name: Php Lint check
-			run: make php-lint
 
