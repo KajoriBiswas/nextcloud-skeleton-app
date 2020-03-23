@@ -12,16 +12,17 @@ jobs:
       matrix:
         php: [7.4]
     steps:
+    
+    - name: Checkout
+      uses: actions/checkout@v2
+    
     - name: Check out to another repo
       uses: actions/checkout@v2
       with:
           repository: nextcloud/server
           ref: stable18
-          working-directory: server/app
+          path: server/app/skeleton_app
           
-    - name: Checkout
-      uses: actions/checkout@v2
-    
     - name: Install dependencies
       run: make install-deps
       
