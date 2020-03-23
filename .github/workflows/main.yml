@@ -17,6 +17,7 @@ jobs:
       with:
           repository: nextcloud/server
           ref: stable18
+          working-directory: ./server/app
 
     - name: Install dependencies
       run: make install-deps
