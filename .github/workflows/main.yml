@@ -16,7 +16,6 @@ jobs:
       uses: actions/checkout@v2
       with:
           repository: nextcloud/server
-          token: ${{ secrets.SECRET_CODE }}
           ref: stable18
 
     - name: Install dependencies
