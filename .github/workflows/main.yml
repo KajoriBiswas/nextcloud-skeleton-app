@@ -26,7 +26,7 @@ jobs:
     - name: Install dependencies
       run: make install-deps
     
-    - name: Get Composer Cache Directory
+    - name: Get composer cache directory
       id: composer-cache
       run: |
         echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -36,6 +36,13 @@ jobs:
        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
        restore-keys: |
           ${{ runner.os }}-composer-
+          
+    - uses: actions/cache@v1
+      with:
+       path: ~/.npm
+       key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+       restore-keys: |
+          ${{ runner.os }}-node-
       
     - name: Adding pecl extension ast
       uses: shivammathur/setup-php@v2
