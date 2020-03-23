@@ -30,14 +30,17 @@ jobs:
       id: composer-cache
       run: |
         echo "::set-output name=dir::$(composer config cache-files-dir)"
-    - uses: actions/cache@v1
+        
+    - name: Run action cache for php
+      uses: actions/cache@v1
       with:
        path: ${{ steps.composer-cache.outputs.dir }}
        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
        restore-keys: |
           ${{ runner.os }}-composer-
           
-    - uses: actions/cache@v1
+    - name: Run action cache for node
+      uses: actions/cache@v1
       with:
        path: ~/.npm
        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
