@@ -21,6 +21,7 @@ jobs:
 
     - name: Install dependencies
       run: make install-deps
+      working-directory: ./server/app
       
     - name: Adding pecl extension ast
       uses: shivammathur/setup-php@v2
@@ -28,8 +29,11 @@ jobs:
         php-version: '7.4'
         tools: pecl
         extensions: ast
+        working-directory: ./server/app
+      
 
     - name: Pre-commit check
       run: make pre-commit
+      working-directory: ./server/app
 
 
