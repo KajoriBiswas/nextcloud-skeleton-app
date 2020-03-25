@@ -1,4 +1,4 @@
-name: Check JS / CSS Code Quality
+name: JS / CSS Code Quality
 on:
   push:
     branches: [ master ]

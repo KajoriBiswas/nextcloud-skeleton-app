@@ -1,4 +1,4 @@
-name: Check PHP Code Quality
+name: PHP Code Quality
 on:
   push:
     branches: [ master ]
