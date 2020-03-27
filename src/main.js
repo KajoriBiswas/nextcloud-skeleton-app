@@ -21,13 +21,17 @@
  */
 import Vue from 'vue'
 import App from './App'
+import { translate, translatePlural } from '@nextcloud/l10n'
+import router from './router'
 
-Vue.prototype.t = t
-Vue.prototype.n = n
-Vue.prototype.OC = OC
-Vue.prototype.OCA = OCA
+Vue.prototype.$t = translate
+Vue.prototype.$n = translatePlural
+
+Vue.prototype.t = translate
+Vue.prototype.n = translatePlural
 
 export default new Vue({
 	el: '#content',
+	router,
 	render: h => h(App),
 })
