@@ -34,4 +34,4 @@ export default new Vue({
 	el: '#content',
 	router,
 	render: h => h(App),
-})
+});
