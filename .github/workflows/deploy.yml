@@ -1,0 +1,30 @@
+name: DEV Server Deployment
+on:
+  push:
+    branches: [ release ]
+  pull_request:
+    branches: [ release ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Deploy on server
+        uses: appleboy/ssh-action@master
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          envs: GITHUB_REPO
+          script: |
+            source /home/osmosys/.bash_profile
+            cd /home/osmosys/nextcloud/dev_deploy_scripts
+            REPO=$(cut -d/ -f2 <<< $GITHUB_REPO)
+            ssh-add -l
+            ./bin/deploy update "${REPO}"
+
