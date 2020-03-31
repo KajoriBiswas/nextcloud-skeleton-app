@@ -29,6 +29,7 @@ export default {
 function getTime() {
 	return [linkTo('skeleton_app', 'index.php'), 'test/index'].join('/')
 }
+
 </script>
 <style scoped>
 #app-content > div {

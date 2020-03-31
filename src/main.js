@@ -26,7 +26,6 @@ import router from './router'
 
 Vue.prototype.$t = translate
 Vue.prototype.$n = translatePlural
-
 Vue.prototype.t = translate
 Vue.prototype.n = translatePlural
 
@@ -34,4 +33,4 @@ export default new Vue({
 	el: '#content',
 	router,
 	render: h => h(App),
-})
+});
