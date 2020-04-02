@@ -2,7 +2,6 @@
 
 namespace OCA\SkeletonApp\Controller;
 
-use Doctrine\DBAL\Types\IntegerType;
 use OCP\IRequest;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\ApiController;
@@ -13,7 +12,7 @@ class ProductApiController extends ApiController
 {
 	use Errors;
 
-	/** @var NoteService */
+	/** @var ProductService */
 	private $service;
 
 	/** @var string */
@@ -22,7 +21,7 @@ class ProductApiController extends ApiController
 	public function __construct(
 		$appName,
 		IRequest $request,
-		NoteService $service,
+		ProductService $service,
 		$userId
 	) {
 		parent::__construct($appName, $request);
@@ -32,17 +31,6 @@ class ProductApiController extends ApiController
 
 	/**
 	 * @CORS
-	 * @NoCSRFRequired
-	 * @NoAdminRequired
-	 */
-	public function index(): DataResponse
-	{
-		return new DataResponse($this->service->findAll($this->userId));
-	}
-
-	/**
-	 * @CORS
-	 * @NoCSRFRequired
 	 * @NoAdminRequired
 	 */
 	public function create(

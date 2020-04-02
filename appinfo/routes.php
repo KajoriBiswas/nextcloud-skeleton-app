@@ -13,6 +13,7 @@ return [
     'routes' => [
         ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 				['name' => 'test#index', 'url' => '/test/index', 'verb' => 'GET'],
-				['name' => 'test#displayButton', 'url' => '/displayButton', 'verb' => 'GET']
+				['name' => 'test#displayButton', 'url' => 'test/displayButton', 'verb' => 'GET'],
+				['name' => 'product_api#create', 'url' => '/create', 'verb'=> 'POST']
     ]
 ];

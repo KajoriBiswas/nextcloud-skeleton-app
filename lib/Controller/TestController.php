@@ -20,9 +20,14 @@ class TestController extends Controller
                 currentDate => 'The current date and time is '.$currentDate
 				    ]);
 		}
-
+/**
+ * @NoAdminRequired
+ * @NoCSRFRequired
+ *
+ * @return void
+ */
 		public function displayButton()
 		{
-			return true;
+			return hello;
 		}
 }
