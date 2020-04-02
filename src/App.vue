@@ -23,16 +23,9 @@
 				<input
 					type="submit"
 					class="primary"
-					:value="t('skeleton_app', 'Save')"
-					:disabled="updating || !savePossible"
-					@click="saveNote">
-			</div>
-			<div v-else id="emptycontent">
-				<div class="icon-file" />
-				<h2>{{ t('skeleton_app', 'Create a note to get started') }}</h2>
+					:value="t('skeleton_app', 'Save')" />
 			</div>
 		</AppContent>
-	</div>
 </template>
 
 <script>
