@@ -1,63 +1,87 @@
 <template>
 	<AppContent>
-		<div class="welcome-content">
-			<h2>{{ t('notes', 'Notes') }}</h2>
-			<div class="feature icon-add">
-				{{ t('notes', 'Start writing a note by clicking on “{newnote}” in the app navigation.', { newnote: t('notes', 'New note') }) }}
-			</div>
-			<div class="feature icon-fullscreen">
-				{{ t('notes', 'Write down your thoughts without any distractions.') }}
-			</div>
-			<div class="feature icon-toggle-filelist">
-				{{ t('notes', 'Use Markdown markups to style your text.') }}
-			</div>
-			<div class="feature icon-files-dark">
-				{{ t('notes', 'Organize your notes in categories.') }}
-			</div>
-			<div class="feature icon-phone">
-				{{ t('notes', 'Install the app for your mobile phone in order to access your notes from everywhere.') }}
-				<ul>
-					<li><a target="_blank" href="https://github.com/stefan-niedermann/nextcloud-notes">{{ t('notes', 'Android app') }}</a></li>
-					<li><a target="_blank" href="https://github.com/owncloud/notes-iOS-App">{{ t('notes', 'iOS app') }}</a></li>
-				</ul>
-			</div>
+		<div class="content">
+			<h2> {{ t('AddProduct', 'Add product') }} </h2>
+			<form @submit.prevent="saveProduct">
+				<input v-model="productName"
+					type="text"
+					:placeholder="t('AddProduct', 'Product name')">
+				<input v-model="productNumber"
+					type="number"
+					:placeholder="t('AddProduct', 'Product quantity')">
+				<input v-model="productPrice"
+					type="text"
+					:placeholder="t('AddProduct', 'Product price')">
+				<input v-model="productSku"
+					type="text"
+					:placeholder="t('AddProduct', 'Product sku')">
+				<input v-model="productCategory"
+					type="text"
+					:placeholder="t('AddProduct', 'Product category')">
+
+				<textarea v-model="productDescription" rows="4" />
+				<input
+					type="submit"
+					class="primary"
+					:value="t('AddProduct', 'Save')">
+			</form>
 		</div>
-		<router-view />
 	</AppContent>
 </template>
-<script>
 
-import {
-	AppContent,
-} from '@nextcloud/vue'
+<script>
+import AppContent from '@nextcloud/vue/dist/Components/AppContent';
+import axios from '@nextcloud/axios';
+import { generateUrl } from '@nextcloud/router';
 
 export default {
 	name: 'AddProduct',
-
 	components: {
 		AppContent,
 	},
-}
-
+	data: function() {
+		return {
+			notes: [],
+			productName: '',
+			productNumber: '',
+			productPrice: '',
+			productSku: '',
+			productCategory: '',
+			productDescription: '',
+		};
+	},
+	methods: {
+		saveProduct() {
+			axios.post(
+				generateUrl('apps/skeleton_app/create'),
+				{
+					name: this.productName,
+					quantity: this.productNumber,
+					price: this.productPrice,
+					sku: this.productSku,
+					category: this.productCategory,
+					description: this.productDescription,
+				}
+			).then(response => {
+				alert('Data inserted');
+			}).catch(reason => {
+				alert('error');
+			});
+		},
+	},
+};
 </script>
 <style>
-.welcome-content {
-	padding: 2em 3em;
+.content {
+	padding: 7em 12em;;
 }
 
-.welcome-content h2 {
-	margin-bottom: 1em;
+input[type='text'], input[type='number'], input[type='submit'] {
+	width: 50%;
 }
 
-.feature {
-	background-position: left top;
-	min-height: 32px;
-	padding-left: 32px;
-	margin-top: 1em;
-}
-
-.feature ul {
-	list-style: circle outside;
-	padding-left: 2em;
+textarea {
+	flex-grow: 1;
+	width: 50%;
 }
 </style>

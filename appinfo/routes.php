@@ -10,10 +10,10 @@
  */
 
 return [
-    'routes' => [
-        ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+	'routes' => [
+		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 				['name' => 'test#index', 'url' => '/test/index', 'verb' => 'GET'],
-				['name' => 'test#displayButton', 'url' => 'test/displayButton', 'verb' => 'GET'],
-				['name' => 'product_api#create', 'url' => '/create', 'verb'=> 'POST']
-    ]
+				['name' => 'product_api#create', 'url' => '/create', 'verb' => 'POST'],
+				['name' => 'product_api#show', 'url' => '/show', 'verb' => 'GET']
+	]
 ];

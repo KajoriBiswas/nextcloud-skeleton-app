@@ -12,7 +12,8 @@ use OCP\Migration\SimpleMigrationStep;
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version000001Date20200331120739 extends SimpleMigrationStep {
+class Version000001Date20200331120739 extends SimpleMigrationStep
+{
 
 	/**
 	 * @param IOutput $output
@@ -20,7 +21,8 @@ class Version000001Date20200331120739 extends SimpleMigrationStep {
 	 * @param array $options
 	 * @return null|ISchemaWrapper
 	 */
-	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options) {
+	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options)
+	{
 		/** @var ISchemaWrapper $schema */
 		$schema = $schemaClosure();
 
@@ -41,7 +43,7 @@ class Version000001Date20200331120739 extends SimpleMigrationStep {
 			$table->addColumn('price', 'decimal', [
 				'notnull' => true,
 				'precision' => 12,
-				'scale' => 10,
+				'scale' => 2,
 			]);
 			$table->addColumn('sku', 'string', [
 				'notnull' => true,

@@ -6,7 +6,6 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\ApiController;
 use OCA\SkeletonApp\Service\ProductService;
-use Sabre\VObject\Property\Text;
 
 class ProductApiController extends ApiController
 {
@@ -30,18 +29,50 @@ class ProductApiController extends ApiController
 	}
 
 	/**
-	 * @CORS
 	 * @NoAdminRequired
 	 */
 	public function create(
 		string $name,
-		integer $quantity,
-		decimal $price,
+		int $quantity,
+		float $price,
 		string $sku,
 		string $category,
-		text $description): DataResponse
-	{
+		string $description
+	): DataResponse {
 		return new DataResponse($this->service->create(
+			$name,
+			$quantity,
+			$price,
+			$sku,
+			$category,
+			$description
+		));
+	}
+
+  /**
+	 * @NoCSRFRequired
+	 * @NoAdminRequired
+	 */
+	public function show(): DataResponse
+	{
+		return new DataResponse($this->service->findAll());
+	}
+
+	/**
+	 * @NoCSRFRequired
+	 * @NoAdminRequired
+	 */
+	public function update(
+		int $id,
+		string $name,
+		int $quantity,
+		float $price,
+		string $sku,
+		string $category,
+		string $description
+	): DataResponse {
+		return new DataResponse($this->service->update(
+			$id,
 			$name,
 			$quantity,
 			$price,

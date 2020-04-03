@@ -1,10 +1,9 @@
 <?php
+
 namespace OCA\SkeletonApp\Controller;
 
 use OCP\IRequest;
 use OCP\AppFramework\Controller;
-
-use function GuzzleHttp\json_encode;
 
 class TestController extends Controller
 {
@@ -13,21 +12,11 @@ class TestController extends Controller
 		parent::__construct($appName, $request);
 	}
 
-    public function index()
-    {
-        $currentDate = date("Y/m/d h:i:sa");
-        return json_encode([
-                currentDate => 'The current date and time is '.$currentDate
-				    ]);
-		}
-/**
- * @NoAdminRequired
- * @NoCSRFRequired
- *
- * @return void
- */
-		public function displayButton()
-		{
-			return hello;
-		}
+	public function index()
+	{
+		$currentDate = date("Y/m/d h:i:sa");
+		return [
+				'currentDate' => 'The current date and time is ' . $currentDate
+				];
+	}
 }

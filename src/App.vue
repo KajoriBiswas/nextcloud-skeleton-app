@@ -1,84 +1,100 @@
 <template>
 	<AppContent>
-		<div class="content">
-			<h2> {{ t('App', 'Add product') }} </h2>
-			<form @submit.prevent="saveProduct">
-				<input type="text"
-					:placeholder="t('App', 'Product name')"
-					v-model="productName" />
-				<input type="number"
-					:placeholder="t('App', 'Product quantity')"
-					v-model="productNumber" />
-				<input type="text"
-					:placeholder="t('App', 'Product price')"
-					v-model="productPrice" />
-				<input type="text"
-					:placeholder="t('App', 'Product sku')"
-					v-model="productSku" />
-				<input type="text"
-					:placeholder="t('App', 'Product category')"
-					v-model="productCategory" />
-
-				<textarea rows="4" v-model="productDescription" />
-				<input
-					type="submit"
-					class="primary"
-					:value="t('skeleton_app', 'Save')" />
+		<div class="wrapper">
+			<div id="grid-template">
+				<div class="table-header-wrapper">
+					<table class="table-header">
+						<thead>
+							<th v-for="heading in productHeads" :key="heading.id">
+								{{ heading | capitalize }}
+							</th>
+						</thead>
+					</table>
+				</div>
+				<div class="table-body-wrapper">
+					<table class="table-body">
+						<tbody>
+							<tr v-for="product in products" :key="product.id">
+								<td>{{ product.name }}</td>
+								<td>{{ product.quantity }}</td>
+								<td>{{ product.price }}</td>
+								<td>{{ product.sku }}</td>
+								<td>{{ product.category }}</td>
+								<td>{{ product.description }}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</AppContent>
+		</div>
+	</AppContent>
 </template>
 
 <script>
-import AppContent from '@nextcloud/vue/dist/Components/AppContent'
-import axios from '@nextcloud/axios'
-import { generateUrl } from '@nextcloud/router'
+import AppContent from '@nextcloud/vue/dist/Components/AppContent';
+import axios from '@nextcloud/axios';
 
 export default {
 	name: 'App',
 	components: {
-		AppContent
+		AppContent,
 	},
 	data: function() {
 		return {
-			notes: [],
-			productName: '',
-			productNumber: '',
-			productPrice: '',
-			productSku: '',
-			productCategory: '',
-			productDescription: ''
-		}
+			productHeads: ['name', 'quantity', 'price', 'sku', 'category', 'description'],
+			products: [],
+		};
 	},
-	methods: {
-		saveProduct() {
-			axios.post(
-				generateUrl('apps/skeleton_app/create'),
-				{
-					name: this.productName,
-					quantity: this.productNumber,
-					price: this.productPrice,
-					sku: this.productSku,
-					category: this.productCategory,
-					description: this.productDescription,
-				}
-			).then(response => {
-				alert('Data inserted')
-			}).catch(reason => {
-				alert('error')
-			})
+	async mounted() {
+		try {
+			const response = await axios.get(OC.generateUrl('/apps/skeleton_app/show'));
+			this.products = response.data;
+		} catch (e) {
+			console.error(e);
+			OCP.Toast.error(t('App', 'Could not fetch products'));
 		}
-	}
-}
+		this.loading = false;
+	},
+};
 </script>
 <style>
-.content {
-	padding: 7em 12em;;
+body {
+	font-family: Helvetica Neue, Arial, sans-serif;
+	font-size: 14px;
+	color: #555;
 }
-input[type='text'], input[type='number'], input[type='submit'] {
-	width: 50%;
+
+table {
+	border-spacing: 0;
+	width: 100%;
 }
-textarea {
-	flex-grow: 1;
-	width: 50%;
+
+th {
+	background-color: #008f68;
+	color: rgba(255, 255, 255, 0.66);
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+td {
+	border-bottom: 1px #008f68 solid;
+}
+
+th,
+td {
+	min-width: 150px;
+	padding: 10px 20px;
+}
+
+#grid-template {
+	display: flex;
+	display: -webkit-flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;
+	width: 600px;
+	padding: 7em;
 }
 </style>
