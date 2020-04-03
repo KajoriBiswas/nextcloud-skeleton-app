@@ -19,6 +19,7 @@ jobs:
         repository: nextcloud/server
         ref: stable18
         path: server
+        submodules: true
 
     - name: Get App Name
       id: repo-name
