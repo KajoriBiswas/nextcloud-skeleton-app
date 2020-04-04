@@ -38,4 +38,4 @@ echo "Running '$FULL_COMMAND' in docker - '$DOCKER_NAME'";
 printf "=%.0s"  $(seq 1 120)
 echo '';
 
-docker exec -it $DOCKER_NAME bash -c "source ~/.bashrc && $FULL_COMMAND"
+docker exec --user www-data -it $DOCKER_NAME bash -c "$FULL_COMMAND"
