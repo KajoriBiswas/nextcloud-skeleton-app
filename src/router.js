@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import { getRootUrl, generateUrl } from '@nextcloud/router';
-
 import AddProduct from './views/AddProduct';
+import ListProduct from './views/ListProduct';
 
 Vue.use(Router);
 
@@ -21,9 +21,14 @@ const router = new Router({
 	base,
 	routes: [
 		{
-			path: '/addProduct',
-			name: 'addProduct',
+			path: '/add-product',
+			name: 'AddProduct',
 			component: AddProduct,
+		},
+		{
+			path: '/',
+			name: 'ListProduct',
+			component: ListProduct,
 		},
 	],
 });

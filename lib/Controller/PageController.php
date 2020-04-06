@@ -22,4 +22,15 @@ class PageController extends Controller
 	{
 		return new TemplateResponse('skeleton_app', 'main');
 	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * @return TemplateResponse
+	 */
+	public function createProduct(): TemplateResponse
+	{
+		return new TemplateResponse($this->appName, 'main');
+	}
 }

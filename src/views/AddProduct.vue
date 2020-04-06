@@ -63,9 +63,10 @@ export default {
 					description: this.productDescription,
 				}
 			).then(response => {
-				alert('Data inserted');
+				OCP.Toast.success(t('AddProduct', 'Product Inserted'));
 			}).catch(reason => {
-				alert('error');
+				alert(JSON.stringify(reason));
+				OCP.Toast.error(t('AddProduct', 'Product could not be inserted'));
 			});
 		},
 	},
@@ -73,7 +74,7 @@ export default {
 </script>
 <style>
 .content {
-	padding: 7em 12em;;
+	padding: 7em 12em;
 }
 
 input[type='text'], input[type='number'], input[type='submit'] {
