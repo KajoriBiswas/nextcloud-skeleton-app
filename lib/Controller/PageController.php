@@ -20,7 +20,7 @@ class PageController extends Controller
 	 */
 	public function index()
 	{
-		return new TemplateResponse('skeleton_app', 'main');
+		return new TemplateResponse($this->appName, 'main');
 	}
 
 	/**

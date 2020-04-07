@@ -16,6 +16,9 @@ dev-setup: clean clean-dev npm-init
 npm-init:
 	npm ci
 
+npm-install:
+	npm i
+
 npm-update:
 	npm update
 

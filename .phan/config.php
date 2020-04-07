@@ -20,6 +20,7 @@ return [
 		'vendor/',
 		'../../core',
 		'../../lib',
+		'../../3rdparty/',
 	],
 
 	// A directory list that defines files that will be excluded
@@ -37,5 +38,6 @@ return [
 		'vendor/',
 		'../../core',
 		'../../lib',
+		'../../3rdparty/',
 	],
 ];

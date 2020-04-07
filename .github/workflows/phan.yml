@@ -19,19 +19,27 @@ jobs:
         repository: nextcloud/server
         ref: stable18
         path: server
+        submodules: true
+
+    - name: Get App Name
+      id: repo-name
+      env:
+        GITHUB_REPO: ${{ github.repository }}
+      run: |
+        echo "::set-output name=app::$(cut -d/ -f2 <<< $GITHUB_REPO)"
 
     - name: Checkout App
       uses: actions/checkout@v2
       with:
-        path: server/app/skeleton_app
+        path: server/app/${{steps.repo-name.outputs.app}}
         clean: false
 
     - name: List Files
-      working-directory: server/app/skeleton_app
+      working-directory: server/app/${{steps.repo-name.outputs.app}}
       run: ls -al
 
     - name: Get Composer Cache Directory
-      working-directory: server/app/skeleton_app
+      working-directory: server/app/${{steps.repo-name.outputs.app}}
       id: composer-cache
       run: |
         echo "::set-output name=dir::$(composer config cache-files-dir)"
@@ -44,7 +52,7 @@ jobs:
 
     - name: Install Dependencies
       run: make composer-install-dev
-      working-directory: server/app/skeleton_app
+      working-directory: server/app/${{steps.repo-name.outputs.app}}
 
     - name: Add PECL ast Extension
       uses: shivammathur/setup-php@v2
@@ -55,4 +63,4 @@ jobs:
 
     - name: Analyze PHP Code
       run: make php-analyze
-      working-directory: server/app/skeleton_app
+      working-directory: server/app/${{steps.repo-name.outputs.app}}
