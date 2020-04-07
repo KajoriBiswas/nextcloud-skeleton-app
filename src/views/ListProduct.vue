@@ -22,6 +22,11 @@
 								<td>{{ product.sku }}</td>
 								<td>{{ product.category }}</td>
 								<td>{{ product.description }}</td>
+								<td>
+									<button @click="deleteProduct(product)">
+										Delete
+									</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -42,7 +47,7 @@ export default {
 	},
 	data: function() {
 		return {
-			productHeads: ['name', 'quantity', 'price', 'sku', 'category', 'description'],
+			productHeads: ['name', 'quantity', 'price', 'sku', 'category', 'description', 'actions'],
 			products: [],
 		};
 	},
@@ -56,6 +61,23 @@ export default {
 			OCP.Toast.error(t('App', 'Could not fetch products'));
 		}
 		this.loading = false;
+	},
+
+	methods: {
+		/**
+		 * Delete a note, remove it from the frontend and show a hint
+		 * @param {Object} product Product object
+		 */
+		deleteProduct(product) {
+			try {
+				axios.delete(OC.generateUrl(`/apps/skeleton_app/products/${product.id}`));
+				alert('product deleted');
+				OCP.Toast.success(t('ListProduct', 'product deleted'));
+			} catch (e) {
+				console.error(e);
+				OCP.Toast.error(t('ListProduct', 'Could not delete the product'));
+			}
+		},
 	},
 };
 </script>
@@ -88,7 +110,7 @@ td {
 
 th,
 td {
-	min-width: 150px;
+	min-width: 120px;
 	padding: 10px 20px;
 }
 

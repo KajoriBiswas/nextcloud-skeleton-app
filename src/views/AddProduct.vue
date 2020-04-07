@@ -63,7 +63,8 @@ export default {
 					description: this.productDescription,
 				}
 			).then(response => {
-				OCP.Toast.success(t('AddProduct', 'Product Inserted'));
+				alert('Product inserted');
+				// OCP.Toast.success(t('AddProduct', 'Product Inserted'));
 			}).catch(reason => {
 				alert(JSON.stringify(reason));
 				OCP.Toast.error(t('AddProduct', 'Product could not be inserted'));

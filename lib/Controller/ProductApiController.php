@@ -81,4 +81,13 @@ class ProductApiController extends ApiController
 			$description
 		));
 	}
+
+	/**
+	 * @NoCSRFRequired
+	 * @NoAdminRequired
+	 */
+	public function destroy(int $id): DataResponse
+	{
+		return new DataResponse($this->service->delete($id));
+	}
 }

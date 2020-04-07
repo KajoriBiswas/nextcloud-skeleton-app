@@ -69,4 +69,15 @@ class ProductService
 	{
 		return $this->mapper->findAll();
 	}
+
+	public function delete($id)
+	{
+		try {
+			$product = $this->mapper->find($id);
+			$this->mapper->delete($product);
+			return $product;
+		} catch (Exception $e) {
+			$this->handleException($e);
+		}
+	}
 }
