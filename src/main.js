@@ -29,6 +29,8 @@ Vue.prototype.$n = translatePlural;
 
 Vue.prototype.t = translate;
 Vue.prototype.n = translatePlural;
+Vue.prototype.OC = OC;
+Vue.prototype.OCA = OCA;
 
 export default new Vue({
 	el: '#content',

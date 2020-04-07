@@ -24,6 +24,11 @@
 					type="submit"
 					class="primary"
 					:value="t('AddProduct', 'Save')">
+				<ul>
+					<ActionLink icon="icon-external" href="/index.php/apps/skeleton_app/">
+						View Products
+					</ActionLink>
+				</ul>
 			</form>
 		</div>
 	</AppContent>
@@ -32,12 +37,14 @@
 <script>
 import AppContent from '@nextcloud/vue/dist/Components/AppContent';
 import axios from '@nextcloud/axios';
+import { ActionLink } from '@nextcloud/vue/dist/Components/ActionLink';
 import { generateUrl } from '@nextcloud/router';
 
 export default {
 	name: 'AddProduct',
 	components: {
 		AppContent,
+		ActionLink,
 	},
 	data: function() {
 		return {

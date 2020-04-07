@@ -16,9 +16,10 @@ return [
 		['name' => 'test#index', 'url' => '/test/index', 'verb' => 'GET'],
 		['name' => 'product_api#create', 'url' => '/create', 'verb' => 'POST'],
 		['name' => 'product_api#show', 'url' => '/show', 'verb' => 'GET'],
+		['name' => 'product_api#update', 'url' => '/update', 'verb' => 'PUT'],
 		[
-			'name' => 'product_api#destroy', 
-			'url' => '/products/{id}', 
+			'name' => 'product_api#destroy',
+			'url' => '/products/{id}',
 			'verb' => 'DELETE',
 			'requirements' => ['id' => '\d+'],
 		]
