@@ -1,64 +1,77 @@
 <template>
-	<AppContent>
-		<div class="content">
-			<h2> {{ t('AddProduct', 'Add product') }} </h2>
-			<form @submit.prevent="saveProduct">
-				<input v-model="productName"
-					type="text"
-					:placeholder="t('AddProduct', 'Product name')">
-				<input v-model="productNumber"
-					type="number"
-					:placeholder="t('AddProduct', 'Product quantity')">
-				<input v-model="productPrice"
-					type="text"
-					:placeholder="t('AddProduct', 'Product price')">
-				<input v-model="productSku"
-					type="text"
-					:placeholder="t('AddProduct', 'Product sku')">
-				<input v-model="productCategory"
-					type="text"
-					:placeholder="t('AddProduct', 'Product category')">
-
-				<textarea v-model="productDescription" rows="4" />
-				<input
-					type="submit"
-					class="primary"
-					:value="t('AddProduct', 'Save')">
-				<ul>
-					<ActionLink icon="icon-external" href="/index.php/apps/skeleton_app/">
-						View Products
-					</ActionLink>
-				</ul>
-			</form>
-		</div>
-	</AppContent>
+	<div>
+		<AppNavigation>
+			<ul>
+				<AppNavigationItem>
+					<a href="/index.php/apps/skeleton_app/" class="focus">
+						<ActionButton icon="icon-toggle-pictures">
+							{{ t('AddProduct', 'List Products') }}
+						</ActionButton>
+					</a>
+					<a href="#" class="focus active">
+						<ActionButton icon="icon-add">
+							{{ t('AddProduct', 'Add Product') }}
+						</ActionButton>
+					</a>
+				</AppNavigationItem>
+			</ul>
+		</AppNavigation>
+		<AppContent>
+			<div class="content">
+				<h2> {{ t('AddProduct', 'Add product') }} </h2>
+				<ProductForm />
+			</div>
+		</AppContent>
+	</div>
 </template>
 
 <script>
 import AppContent from '@nextcloud/vue/dist/Components/AppContent';
 import axios from '@nextcloud/axios';
-import { ActionLink } from '@nextcloud/vue/dist/Components/ActionLink';
 import { generateUrl } from '@nextcloud/router';
+import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation';
+import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem';
+import { ActionButton } from '@nextcloud/vue/dist/Components/ActionButton';
+import ProductForm from '../Components/ProductForm.vue';
 
 export default {
 	name: 'AddProduct',
 	components: {
 		AppContent,
-		ActionLink,
+		AppNavigation,
+		AppNavigationItem,
+		ActionButton,
+		ProductForm,
 	},
 	data: function() {
 		return {
-			notes: [],
 			productName: '',
 			productNumber: '',
 			productPrice: '',
 			productSku: '',
 			productCategory: '',
 			productDescription: '',
+			loadingIndicator: false,
+			errors: [],
 		};
 	},
+	mounted() {
+		this.$root.$on('product-entered', (data) => {
+			this.productName = data.productName;
+			this.productNumber = data.productNumber;
+			this.productPrice = data.productPrice;
+			this.productSku = data.productSku;
+			this.productCategory = data.productCategory;
+			this.productDescription = data.productDescription;
+			this.saveProduct();
+		});
+	},
 	methods: {
+		loading(isLoading) {
+			this.loadingIndicator = isLoading;
+		},
 		saveProduct() {
+			this.loading(true);
 			axios.post(
 				generateUrl('apps/skeleton_app/create'),
 				{
@@ -70,6 +83,7 @@ export default {
 					description: this.productDescription,
 				}
 			).then(response => {
+				this.loading(false);
 				alert('Product inserted');
 				// OCP.Toast.success(t('AddProduct', 'Product Inserted'));
 			}).catch(reason => {
@@ -85,12 +99,32 @@ export default {
 	padding: 7em 12em;
 }
 
-input[type='text'], input[type='number'], input[type='submit'] {
-	width: 50%;
+input[type='text'], input[type='number'], input[type='submit'], textarea {
+	width: 85%;
 }
 
 textarea {
 	flex-grow: 1;
 	width: 50%;
+}
+
+.loading-indicator {
+	width: 100%;
+	top: 0;
+	height: 50px;
+}
+
+#app-navigation {
+	width: 242px !important;
+	top: 21px !important;
+}
+
+.focus:hover {
+	background-color: #ededed;
+}
+
+a.active .action-button__text{
+	color: black;
+	font-weight: bold;
 }
 </style>

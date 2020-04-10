@@ -24,7 +24,7 @@ class ProductService
 			$e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException
 		) {
-			throw new NoteNotFound($e->getMessage());
+			throw new ProductNotFound($e->getMessage());
 		} else {
 			throw $e;
 		}
