@@ -21,11 +21,20 @@
  */
 import Vue from 'vue';
 import App from './App';
+import { getRequestToken } from '@nextcloud/auth';
+import { generateFilePath } from '@nextcloud/router';
 
 Vue.prototype.t = t;
 Vue.prototype.n = n;
 Vue.prototype.OC = OC;
 Vue.prototype.OCA = OCA;
+
+// This is done to add a nonce to the script loaded by webpack
+// and to set the base path of the project.
+// eslint-disable-next-line camelcase
+__webpack_nonce__ = btoa(getRequestToken());
+// eslint-disable-next-line camelcase
+__webpack_public_path__ = generateFilePath('skeleton_app', '', 'js/');
 
 export default new Vue({
 	el: '#content',
