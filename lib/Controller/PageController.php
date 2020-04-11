@@ -1,10 +1,10 @@
 <?php
 
- namespace OCA\SkeletonApp\Controller;
+namespace OCA\SkeletonApp\Controller;
 
- use OCP\IRequest;
- use OCP\AppFramework\Http\TemplateResponse;
- use OCP\AppFramework\Controller;
+use OCP\IRequest;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Controller;
 
 class PageController extends Controller
 {

@@ -23,22 +23,7 @@ import Vue from 'vue';
 import App from './App';
 import { translate, translatePlural } from '@nextcloud/l10n';
 import router from './router';
-import { ValidationObserver, ValidationProvider, extend, localize } from 'vee-validate';
-import en from 'vee-validate/dist/locale/en.json';
-import * as rules from 'vee-validate/dist/rules';
 
-// install rules and localization
-Object.keys(rules).forEach(rule => {
-	// eslint-disable-next-line import/namespace
-	extend(rule, rules[rule]);
-});
-
-localize('en', en);
-
-// eslint-disable-next-line vue/match-component-file-name
-Vue.component('ValidationObserver', ValidationObserver);
-// eslint-disable-next-line vue/match-component-file-name
-Vue.component('ValidationProvider', ValidationProvider);
 Vue.prototype.$t = translate;
 Vue.prototype.$n = translatePlural;
 
@@ -46,6 +31,13 @@ Vue.prototype.t = translate;
 Vue.prototype.n = translatePlural;
 Vue.prototype.OC = OC;
 Vue.prototype.OCA = OCA;
+
+// This is done to add a nonce to the script loaded by webpack
+// and to set the base path of the project.
+// eslint-disable-next-line camelcase
+__webpack_nonce__ = btoa(getRequestToken());
+// eslint-disable-next-line camelcase
+__webpack_public_path__ = generateFilePath('skeleton_app', '', 'js/');
 
 export default new Vue({
 	el: '#content',
